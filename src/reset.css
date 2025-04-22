@@ -1,0 +1,102 @@
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Вказуємо box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Усуваємо внутрішні відступи */
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+/* Усуваємо зовнішні відступи */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Виставляємо основні налаштування за замовчуванням для body */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* Видаляємо стандартну стилізацію для всіх ul та il, у яких є атрибут class*/
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+/* Елементи a, які не мають класу, скидаємо до дефолтних стилів */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Спрощуємо роботу із зображеннями */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+/* Вказуємо зрозумілу періодичність у потоці даних у article*/
+article>*+* {
+    margin-top: 1em;
+}
+
+/* Наслідуємо шрифти для інпутів та кнопок */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Видаляємо всі анімації та переходи для людей, які вважають за краще їх не використовувати */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

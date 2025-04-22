@@ -1,0 +1,19 @@
+#root {
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+
+  /* text-align: center; */
+  /* border: 1px dotted red; */
+}
+
+.main-container {
+  max-width: 1280px;
+  min-width: 30em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,50 @@
+.resetPwdForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    gap: .5em;
+}
+
+.pwdItem {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+
+.inputLabel {
+    /* width: 100%; */
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.pwdInput {
+    width: 100%;
+    border-radius: 8px;
+    padding: .3em .5em;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: 500;
+    font-size: .8em;
+}
+
+.submitBtn {
+    margin-top: .5em;
+    padding: 0.3em 1em;
+    text-align: center;
+    font-weight: 400;
+    border: 0;
+    border-radius: 5px;
+    width: 100%;
+    max-width: max-content;
+    font-weight: 400;
+    color: var(--btn-color);
+    background: linear-gradient(90deg, var(--btn-background-dark-color), var(--btn-background-light-color));
+}
+
+.submitBtn:hover {
+    filter: brightness(120%);
+}
