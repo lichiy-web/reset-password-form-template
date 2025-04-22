@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { baseURL, resetPasswordRoute } from './api-config.json';
 
 const configAPI = {
-  baseURL: 'https://nodejs-hw-mongodb-hw6-email-and-images-58gc.onrender.com',
+  baseURL,
   timeout: 4000,
 };
 const api = axios.create(configAPI);
 
-export const resetPassword = creds => api.post('/auth/reset-pwd', creds);
+export const resetPassword = creds => api.post(resetPasswordRoute, creds);

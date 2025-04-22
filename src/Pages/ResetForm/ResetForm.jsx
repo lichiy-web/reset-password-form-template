@@ -1,19 +1,24 @@
 import css from './ResetForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import YupPassword from 'yup-password';
 import { resetPassword } from '../../api/api';
 import toast from 'react-hot-toast';
+import { jwtDecode } from 'jwt-decode';
+import clsx from 'clsx';
+
 YupPassword(Yup);
 
 const initialValues = {
+  email: '',
   password: '',
   confirmPassword: '',
 };
 
 const resetPasswordFormSchema = Yup.object().shape({
+  email: Yup.string().email(),
   password: Yup.string().password().required('Required'),
   confirmPassword: Yup.string()
     .password()
@@ -27,6 +32,7 @@ const resetPasswordFormSchema = Yup.object().shape({
 
 const ResetForm = () => {
   const token = useRef(null);
+  const [email, setEmail] = useState('');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -35,30 +41,56 @@ const ResetForm = () => {
     console.log(`token = ${token.current}`);
     const hasToken = Boolean(token.current);
     if (!hasToken) navigate('/404', { replace: true });
-  }, [searchParams, navigate, token]);
+
+    const decodedToken = jwtDecode(token.current);
+    setEmail(decodedToken.email);
+    console.log('decodedToken = ', decodedToken);
+  }, [searchParams, navigate, token, email]);
+
+  const initialValues = {
+    username: email,
+    password: '',
+    confirmPassword: '',
+  };
 
   const handleSubmit = ({ password }, actions) => {
     const creds = {
       token: token.current,
       password,
     };
-    resetPassword(creds).then(data => {
-      console.log('data = ', data);
-      navigate('/');
-      toast.success('Password has been successfully reset.', {
-        duration: 4000,
+    resetPassword(creds)
+      .then(data => {
+        console.log('data = ', data);
+        navigate('/');
+        toast.success('Password has been successfully reset.', {
+          duration: 4000,
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        navigate('/404');
       });
-    });
+
     actions.resetForm();
   };
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={resetPasswordFormSchema}
       onSubmit={handleSubmit}
     >
       <Form className={css.resetPwdForm}>
         <h2>Reset your password</h2>
+        <label className={css.pwdItem}>
+          {/* <span className={css.inputLabel}>Name</span> */}
+          <Field
+            className={clsx([css.pwdInput, css.hiddedInput])}
+            type="email"
+            name="username"
+            autoComplete="username email"
+          />
+        </label>
         <label className={css.pwdItem}>
           <span className={css.inputLabel}>Password</span>
           <Field

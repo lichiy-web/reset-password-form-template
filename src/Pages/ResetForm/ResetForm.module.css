@@ -6,6 +6,10 @@
     gap: .5em;
 }
 
+.hiddedInput {
+    display: none
+}
+
 .pwdItem {
     display: flex;
     flex-direction: column;
